@@ -6,6 +6,15 @@
     <description>Updates for Clips, clipboard history for Mac.</description>
     <language>en</language>
     <item>
+      <title>Version 1.1.2</title>
+      <pubDate>Tue, 17 Nov 2026 10:48:31 GMT</pubDate>
+      <sparkle:version>202611171447</sparkle:version>
+      <sparkle:shortVersionString>1.1.2</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul><li>New: rename clipboard items. Select an item and press ⌘R (or right-click → Rename…) to give it a name like &quot;My IBAN&quot;. Named items are pinned and you can search by their name.</li><li>New: right-click an item to Rename, Pin/Unpin or Delete it</li></ul>]]></description>
+      <enclosure url="https://github.com/aurryllash/clips/releases/download/v1.1.2/Clips.dmg" type="application/octet-stream" sparkle:edSignature="tpZPJx+Pz20MiJdtemKcKPtUNRO8/HmVmdPL6agsKp6DIfrrgI5/SJ1u//RFm4t+aOcR1mRodLb3Uh7Ye1wRAQ==" length="1794616" />
+    </item>
+    <item>
       <title>Version 1.1.1</title>
       <pubDate>Tue, 17 Nov 2026 10:32:17 GMT</pubDate>
       <sparkle:version>202611171430</sparkle:version>
