@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Clips</title>
+    <link>https://clipsformac.vercel.app/</link>
+    <description>Updates for Clips, clipboard history for Mac.</description>
+    <language>en</language>
+    <item>
+      <title>Version 1.1</title>
+      <pubDate>Tue, 17 Nov 2026 09:05:03 GMT</pubDate>
+      <sparkle:version>202611171304</sparkle:version>
+      <sparkle:shortVersionString>1.1</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul><li>Automatic updates: Clips now keeps itself up to date</li><li>New &quot;Check for Updates…&quot; item in the menu bar menu</li><li>Version number shown in the menu</li></ul>]]></description>
+      <enclosure url="https://github.com/aurryllash/clips/releases/download/v1.1/Clips.dmg" type="application/octet-stream" sparkle:edSignature="jTzU/eYKUXsEAqJzD/Ukfhh+pk5eWbqybyVjrBLkyq6zxP4NluMKYQbXZ8vbXt1QvPvklCjjwtI882Exb0ReBw==" length="1712527" />
+    </item>
+  </channel>
+</rss>
