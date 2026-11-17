@@ -347,6 +347,40 @@
     .guide-step { grid-template-columns: 1fr; gap: 18px; padding: 22px; }
     .install-tabs button { padding: 8px 12px; font-size: 14px; }
   }
+  /* Rename showcase */
+  .showcase { display: grid; grid-template-columns: 1fr 1.1fr; gap: 36px; align-items: center; padding: 36px; }
+  .showcase h3 { font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; margin: 0 0 12px; }
+  .showcase .lead-sm { color: var(--muted); margin: 0 0 20px; }
+  .showcase ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; counter-reset: s; }
+  .showcase ol li { display: flex; gap: 12px; align-items: baseline; }
+  .showcase ol li::before {
+    counter-increment: s; content: counter(s); flex: none; width: 24px; height: 24px; border-radius: 8px;
+    display: grid; place-items: center; background: var(--grad); color: #fff; font-size: 13px; font-weight: 800;
+  }
+  .name-list {
+    border-radius: 14px; padding: 8px; overflow: hidden;
+    background: linear-gradient(var(--surface-solid), var(--surface-solid)) padding-box, var(--grad-soft) border-box;
+    border: 1px solid transparent; box-shadow: var(--shadow);
+  }
+  .name-row { display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 12px; border-radius: 9px; font-size: 14px; white-space: nowrap; overflow: hidden; }
+  .name-row .ico { width: 16px; height: 16px; border-radius: 5px; flex: none; }
+  .name-row b { flex: none; }
+  .name-row .content { color: var(--muted); font-size: 13px; overflow: hidden; text-overflow: ellipsis; flex: 1; }
+  .name-row .pin { font-size: 11px; }
+  .name-row.sel { background: var(--grad); color: #fff; }
+  .name-row.sel .content { color: rgba(255, 255, 255, .75); }
+  .name-row .field {
+    flex: 1; background: var(--surface-solid); color: var(--text); border: 2px solid var(--accent); border-radius: 7px;
+    padding: 3px 8px; font-size: 13.5px;
+  }
+  .name-row .field::after { content: ""; display: inline-block; width: 2px; height: 1em; background: var(--accent); margin-left: 1px; vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+  .name-hint { display: flex; gap: 14px; padding: 10px 12px 4px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 6px; }
+  .name-hint b { color: var(--text); }
+  .demo .row .txt b { font-weight: 650; margin-right: 6px; }
+  .demo .row .txt .sub { opacity: .65; font-size: 13px; }
+  @media (max-width: 820px) {
+    .showcase { grid-template-columns: 1fr; padding: 24px; gap: 24px; }
+  }
 </style>
 <!-- Vercel Web Analytics (cookie-free visitor counts) -->
 <script defer src="/_vercel/insights/script.js"></script>
@@ -385,7 +419,7 @@
         <div class="demo-preview" id="demo-preview"></div>
       </div>
       <div class="demo-foot">
-        <span><b>↩</b> Paste</span><span><b>⇧↩</b> Plain text</span><span><b>⌘P</b> Pin</span><span><b>⌘⌫</b> Delete</span><span><b>esc</b> Close</span>
+        <span><b>↩</b> Paste</span><span><b>⇧↩</b> Plain text</span><span><b>⌘P</b> Pin</span><span><b>⌘R</b> Rename</span><span><b>⌘⌫</b> Delete</span><span><b>esc</b> Close</span>
       </div>
     </div></div>
   </header>
@@ -402,8 +436,8 @@
       </div>
       <div class="card">
         <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6l-1 6 4 3H6l4-3-1-6zM12 13v8"/></svg></div>
-        <h3>Pin favorites</h3>
-        <p>Keep your email, IBAN or signature on top forever with <kbd>⌘P</kbd>.</p>
+        <h3>Pin &amp; name favorites</h3>
+        <p>Keep your email, IBAN or signature on top with <kbd>⌘P</kbd>, and give them names like “My IBAN” with <kbd>⌘R</kbd>.</p>
       </div>
       <div class="card">
         <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/></svg></div>
@@ -428,6 +462,31 @@
     </div>
   </section>
 
+  <section id="rename">
+    <span class="eyebrow grad-text">New in 1.1.2</span>
+    <h2>Name your copies. <span class="grad-text">Find them instantly.</span></h2>
+    <p class="section-lead">No more scrolling for that one IBAN. Give the things you paste often a name you'll remember.</p>
+    <div class="card showcase">
+      <div>
+        <h3>“My IBAN” beats “GE29 NB00 0000…”</h3>
+        <p class="lead-sm">Named items stay pinned at the top, and search finds them by name. Pasting still inserts the real content.</p>
+        <ol>
+          <li><span>Press <kbd>⇧⌘V</kbd> and select an item</span></li>
+          <li><span>Press <kbd>⌘R</kbd>, or right-click → <b>Rename…</b></span></li>
+          <li><span>Type a name and press <kbd>↩</kbd>. Search for it any time</span></li>
+        </ol>
+      </div>
+      <div class="name-list" aria-hidden="true">
+        <div class="name-row sel"><span class="ico" style="background:#fff"></span><b>My IBAN</b><span class="content">GE29 NB00 0000 0123 4567 89</span><span class="pin">📌</span></div>
+        <div class="name-row"><span class="ico" style="background:#22c55e"></span><b>Home address</b><span class="content">12 Rustaveli Ave, Tbilisi 0108</span><span class="pin">📌</span></div>
+        <div class="name-row"><span class="ico" style="background:#f97316"></span><b>Email signature</b><span class="content">Best regards, Lasha · Clips for Mac</span><span class="pin">📌</span></div>
+        <div class="name-row"><span class="ico" style="background:#a855f7"></span><span class="field">Support reply</span></div>
+        <div class="name-row"><span class="ico" style="background:#0ea5e9"></span><span class="content" style="color:var(--text)">Thanks for reaching out! We'll get back to you…</span></div>
+        <div class="name-hint"><span><b>↩</b> Save name</span><span><b>esc</b> Cancel</span><span>Leave empty to remove the name</span></div>
+      </div>
+    </div>
+  </section>
+
   <section>
     <span class="eyebrow grad-text">Shortcuts</span>
     <h2>Keyboard first</h2>
@@ -438,6 +497,7 @@
       <div><span>Paste as plain text</span><kbd>⇧↩</kbd></div>
       <div><span>Paste item 1–9</span><kbd>⌘1 … ⌘9</kbd></div>
       <div><span>Pin / unpin</span><kbd>⌘P</kbd></div>
+      <div><span>Rename item</span><kbd>⌘R</kbd></div>
       <div><span>Delete item</span><kbd>⌘⌫</kbd></div>
       <div><span>Close</span><kbd>esc</kbd></div>
     </div>
@@ -535,6 +595,10 @@
         <p>Yes, Clips is free to download and use.</p>
       </details>
       <details>
+        <summary>Can I give names to saved items?</summary>
+        <p>Yes. Select an item and press ⌘R (or right-click → Rename…), type a name like “My IBAN” and press Return. Named items are pinned, show their name in bold, and you can search by the name. To remove a name, rename it to nothing.</p>
+      </details>
+      <details>
         <summary>Does Clips send my data anywhere?</summary>
         <p>No. Your history is stored only on your Mac, in <code>~/Library/Application Support/Clips</code>. Your clipboard history is never sent anywhere; Clips only goes online to check for updates.</p>
       </details>
@@ -577,11 +641,11 @@
 <script>
   // Demo: types a search into the fake window and filters the list.
   const items = [
-    { t: "lasha@example.com", c: "#3d6eff", pin: true, p: "lasha@example.com" },
+    { n: "My email", t: "lasha@example.com", c: "#3d6eff", pin: true, p: "lasha@example.com" },
     { t: "https://github.com/aurryllash/clips", c: "#f97316", p: "https://github.com/aurryllash/clips" },
     { t: "Meeting moved to 3pm, see you there!", c: "#22c55e", p: "Meeting moved to 3pm, see you there!" },
     { t: "Screenshot 2026-11-17 at 10.42", c: "#a855f7", p: "Image 2880×1800" },
-    { t: "GE29 NB00 0000 0123 4567 89", c: "#3d6eff", pin: true, p: "GE29 NB00 0000 0123 4567 89" },
+    { n: "My IBAN", t: "GE29 NB00 0000 0123 4567 89", c: "#3d6eff", pin: true, p: "GE29 NB00 0000 0123 4567 89" },
     { t: "const total = items.reduce((a, b) => a + b, 0)", c: "#0ea5e9", p: "const total = items.reduce((a, b) => a + b, 0)" },
     { t: "Invoice #1042: Clips Pro", c: "#f43f5e", p: "Invoice #1042: Clips Pro\nAmount: $8.00\nDue: Dec 1" },
   ];
@@ -590,20 +654,28 @@
   const query = document.getElementById("demo-query");
 
   function render(q) {
-    const shown = items.filter(i => i.t.toLowerCase().includes(q.toLowerCase()));
+    const matches = i => ((i.n || "") + " " + i.t).toLowerCase().includes(q.toLowerCase());
+    const shown = items.filter(i => i.pin && matches(i)).concat(items.filter(i => !i.pin && matches(i)));
     list.innerHTML = "";
     shown.forEach((item, n) => {
       const row = document.createElement("div");
       row.className = "row" + (n === 0 ? " sel" : "");
       row.innerHTML = `<span class="ico" style="background:${item.c}"></span><span class="txt"></span>` +
         (item.pin ? `<span class="pin">📌</span>` : "") + (n < 9 ? `<span class="key">⌘${n + 1}</span>` : "");
-      row.querySelector(".txt").textContent = item.t;
+      const txt = row.querySelector(".txt");
+      if (item.n) {
+        const name = document.createElement("b"); name.textContent = item.n;
+        const sub = document.createElement("span"); sub.className = "sub"; sub.textContent = item.t;
+        txt.append(name, sub);
+      } else {
+        txt.textContent = item.t;
+      }
       list.appendChild(row);
     });
-    preview.textContent = shown[0] ? shown[0].p : "No matches";
+    preview.textContent = shown[0] ? (shown[0].n ? shown[0].n + "\n\n" : "") + shown[0].p : "No matches";
   }
 
-  const searches = ["", "invoice", "", "github", "", "GE29"];
+  const searches = ["", "iban", "", "invoice", "", "my email", "", "github"];
   let step = 0;
   function typeNext() {
     const word = searches[step % searches.length];
