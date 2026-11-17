@@ -1,0 +1,10 @@
+{
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/download",
+      "destination": "https://github.com/aurryllash/clips/releases/latest/download/Clips.dmg",
+      "permanent": false
+    }
+  ]
+}
