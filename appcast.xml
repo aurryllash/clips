@@ -6,6 +6,15 @@
     <description>Updates for Clips, clipboard history for Mac.</description>
     <language>en</language>
     <item>
+      <title>Version 1.1.1</title>
+      <pubDate>Tue, 17 Nov 2026 10:32:17 GMT</pubDate>
+      <sparkle:version>202611171430</sparkle:version>
+      <sparkle:shortVersionString>1.1.1</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul><li>Fixed: screenshots pasted through Clips could look washed out (like a white overlay), especially on Macs with HDR displays. Clips now pastes images exactly as they were copied.</li><li>New: ⇧Return on an image pastes a standard version that looks the same in every app</li><li>More reliable keyboard focus when opening Clips right after switching apps</li></ul>]]></description>
+      <enclosure url="https://github.com/aurryllash/clips/releases/download/v1.1.1/Clips.dmg" type="application/octet-stream" sparkle:edSignature="Yzi+6mdoqq6V1jn2MerMjDUbXa3FMwPDif1Imvj/wD+f469+AQPxuqrBRT6+nXn0r9CfgG9NWlyFUN1qmh05Aw==" length="1737621" />
+    </item>
+    <item>
       <title>Version 1.1</title>
       <pubDate>Tue, 17 Nov 2026 09:05:03 GMT</pubDate>
       <sparkle:version>202611171304</sparkle:version>
