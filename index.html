@@ -381,6 +381,24 @@
   @media (max-width: 820px) {
     .showcase { grid-template-columns: 1fr; padding: 24px; gap: 24px; }
   }
+  /* Type filter showcase */
+  .filter-mock { position: relative; min-height: 330px; }
+  .filter-bar { display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 12px; border-bottom: 1px solid var(--border); margin-bottom: 6px; font-size: 14px; color: var(--muted); }
+  .filter-bar svg, .filter-drop svg, .filter-btn svg { width: 15px; height: 15px; flex: none; }
+  .filter-bar .q { flex: 1; color: var(--text); }
+  .filter-btn { display: inline-flex; align-items: center; gap: 6px; color: var(--text); font-size: 13px; white-space: nowrap; }
+  .filter-btn .chev { font-size: 9px; opacity: .7; }
+  .filter-drop {
+    position: absolute; top: 46px; right: 10px; width: 190px; padding: 5px; border-radius: 11px;
+    background: var(--surface-solid); border: 1px solid var(--border); box-shadow: 0 18px 40px -12px rgba(20, 20, 60, .45);
+  }
+  .filter-drop div { display: flex; align-items: center; gap: 9px; height: 30px; padding: 0 9px; border-radius: 7px; font-size: 13px; }
+  .filter-drop div.on { background: var(--grad); color: #fff; }
+  .filter-drop hr { border: 0; border-top: 1px solid var(--border); margin: 4px 6px; }
+  .filter-mock .name-row { opacity: .55; }
+  @media (max-width: 820px) {
+    .filter-drop { right: 6px; }
+  }
 </style>
 <!-- Vercel Web Analytics (cookie-free visitor counts) -->
 <script defer src="/_vercel/insights/script.js"></script>
@@ -419,7 +437,7 @@
         <div class="demo-preview" id="demo-preview"></div>
       </div>
       <div class="demo-foot">
-        <span><b>↩</b> Paste</span><span><b>⇧↩</b> Plain text</span><span><b>⌘P</b> Pin</span><span><b>⌘R</b> Rename</span><span><b>⌘⌫</b> Delete</span><span><b>esc</b> Close</span>
+        <span><b>↩</b> Paste</span><span><b>⇧↩</b> Plain text</span><span><b>⌘P</b> Pin</span><span><b>⌘R</b> Rename</span><span><b>⌘⌫</b> Delete</span><span><b>⇥</b> Type</span><span><b>esc</b> Close</span>
       </div>
     </div></div>
   </header>
@@ -447,7 +465,7 @@
       <div class="card">
         <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 8"/></svg></div>
         <h3>Text, images &amp; files</h3>
-        <p>Screenshots, photos and Finder files are saved too, with a live preview.</p>
+        <p>Screenshots, photos and Finder files are saved too, with a live preview. Copy a picture in Finder and paste it straight into a chat.</p>
       </div>
       <div class="card">
         <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h10M4 17h13"/></svg></div>
@@ -458,6 +476,40 @@
         <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
         <h3>Private by design</h3>
         <p>Everything stays on your Mac. No account, no cloud, no tracking. Passwords are skipped.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="filter">
+    <span class="eyebrow grad-text">New in 1.1.3</span>
+    <h2>Only links. Only images. <span class="grad-text">Just press Tab.</span></h2>
+    <p class="section-lead">Long history? Show one type of item at a time, and search inside it.</p>
+    <div class="card showcase">
+      <div>
+        <h3>Find that link without scrolling past 40 screenshots</h3>
+        <p class="lead-sm">Filter by text, images, files, links, emails or colors. Clips recognizes links, email addresses and hex colors like #FF6363 automatically.</p>
+        <ol>
+          <li><span>Press <kbd>⇧⌘V</kbd> to open Clips</span></li>
+          <li><span>Press <kbd>Tab</kbd>, or click <b>All Types</b> next to the search</span></li>
+          <li><span>Pick a type with <kbd>↑</kbd> <kbd>↓</kbd> and press <kbd>↩</kbd>. Type to search inside it</span></li>
+        </ol>
+      </div>
+      <div class="name-list filter-mock" aria-hidden="true">
+        <div class="filter-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span class="q">github</span><span class="filter-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/></svg>Links Only<span class="chev">▲</span></span></div>
+        <div class="name-row"><span class="ico" style="background:#a855f7"></span><span class="content" style="color:var(--text)">https://github.com/aurryllash/clips</span></div>
+        <div class="name-row"><span class="ico" style="background:#0ea5e9"></span><span class="content" style="color:var(--text)">https://github.com/sparkle-project</span></div>
+        <div class="name-row"><span class="ico" style="background:#22c55e"></span><span class="content" style="color:var(--text)">https://gist.github.com/…</span></div>
+        <div class="name-row"><span class="ico" style="background:#f97316"></span><span class="content" style="color:var(--text)">https://docs.github.com/…</span></div>
+        <div class="filter-drop">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>All Types</div>
+          <hr>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6h14M12 6v13"/></svg>Text Only</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-8 8"/></svg>Images Only</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>Files Only</div>
+          <div class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/></svg>Links Only</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg>Emails Only</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4l6 6-9 9H5v-6z"/><path d="M11 7l6 6"/></svg>Colors Only</div>
+        </div>
       </div>
     </div>
   </section>
@@ -499,6 +551,7 @@
       <div><span>Pin / unpin</span><kbd>⌘P</kbd></div>
       <div><span>Rename item</span><kbd>⌘R</kbd></div>
       <div><span>Delete item</span><kbd>⌘⌫</kbd></div>
+      <div><span>Show one type</span><kbd>Tab</kbd></div>
       <div><span>Close</span><kbd>esc</kbd></div>
     </div>
   </section>
@@ -597,6 +650,10 @@
       <details>
         <summary>Can I give names to saved items?</summary>
         <p>Yes. Select an item and press ⌘R (or right-click → Rename…), type a name like “My IBAN” and press Return. Named items are pinned, show their name in bold, and you can search by the name. To remove a name, rename it to nothing.</p>
+      </details>
+      <details>
+        <summary>Can I see only images, links or files?</summary>
+        <p>Yes. Open Clips, press Tab (or click “All Types” next to the search), pick a type with the arrow keys and press Return. You can show text, images, files, links, emails or colors, and search within that type. Choose “All Types” to see everything again.</p>
       </details>
       <details>
         <summary>Does Clips send my data anywhere?</summary>
