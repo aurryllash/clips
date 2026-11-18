@@ -2,6 +2,6 @@
 
 Press **⇧⌘V** to search and paste anything you've copied.
 
-**[Download Clips for Mac](https://clipsformac.vercel.app/download)** · [Website](https://clipsformac.vercel.app/)
+**[Download Clips for Mac](https://www.clipsapp.online/download)** · [Website](https://www.clipsapp.online/)
 
-Free · macOS 13 or later · Apple silicon & Intel
+Free for 30 days · macOS 13 or later · Apple silicon & Intel
