@@ -2,9 +2,18 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>Clips</title>
-    <link>https://clipsformac.vercel.app/</link>
+    <link>https://www.clipsapp.online/</link>
     <description>Updates for Clips, clipboard history for Mac.</description>
     <language>en</language>
+    <item>
+      <title>Version 1.2.2</title>
+      <pubDate>Wed, 18 Nov 2026 13:54:08 GMT</pubDate>
+      <sparkle:version>202611181753</sparkle:version>
+      <sparkle:shortVersionString>1.2.2</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul><li>New dark app icon</li></ul>]]></description>
+      <enclosure url="https://github.com/aurryllash/clips/releases/download/v1.2.2/Clips.dmg" type="application/octet-stream" sparkle:edSignature="+fFGiUKfPxBZVjDtPraz34HGO1RtiH+J92CWcfcC/WCd12dI8u0T7oqzVLeDqnD3H7vszBdWPHp+I2StvynkBA==" length="2254250" />
+    </item>
     <item>
       <title>Version 1.2.1</title>
       <pubDate>Wed, 18 Nov 2026 13:17:56 GMT</pubDate>
