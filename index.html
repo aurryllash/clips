@@ -140,7 +140,7 @@
     background: var(--grad); filter: blur(70px); opacity: .45; border-radius: 40px;
   }
   .demo {
-    text-align: left; overflow: hidden; border-radius: 16px;
+    position: relative; text-align: left; overflow: hidden; border-radius: 16px;
     background: linear-gradient(var(--surface-solid), var(--surface-solid)) padding-box, var(--grad-soft) border-box;
     border: 1px solid transparent; box-shadow: var(--shadow);
   }
@@ -150,7 +150,7 @@
   .demo-query::after { content: ""; display: inline-block; width: 2px; height: 1.1em; background: var(--accent); margin-left: 1px; vertical-align: -3px; animation: blink 1s steps(1) infinite; }
   .demo-query:empty::before { content: "Search clipboard history"; color: var(--muted); }
   @keyframes blink { 50% { opacity: 0; } }
-  .demo-body { display: grid; grid-template-columns: 300px 1fr; min-height: 270px; }
+  .demo-body { display: grid; grid-template-columns: 300px 1fr; min-height: 284px; }
   .demo-list { padding: 6px; border-right: 1px solid var(--border); }
   .row {
     display: flex; align-items: center; gap: 10px; padding: 0 10px; height: 34px; border-radius: 8px;
@@ -165,6 +165,24 @@
   .demo-preview { padding: 16px; font: 13px/1.6 ui-monospace, "SF Mono", Menlo, monospace; color: var(--text); white-space: pre-wrap; word-break: break-word; }
   .demo-foot { display: flex; gap: 16px; flex-wrap: wrap; padding: 8px 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
   .demo-foot b { color: var(--text); font-weight: 600; }
+  .demo-foot .lock { margin-left: auto; color: var(--text); }
+  .demo-filter { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .demo-filter.active { color: var(--text); }
+  .demo-filter .chev { font-size: 9px; }
+  .demo-drop {
+    position: absolute; top: 56px; right: 12px; width: 180px; padding: 5px; border-radius: 11px; z-index: 2;
+    background: var(--surface-solid); border: 1px solid var(--border); box-shadow: 0 18px 40px -12px rgba(20, 20, 60, .5);
+  }
+  .demo-drop[hidden] { display: none; }
+  .demo-drop div { height: 28px; display: flex; align-items: center; padding: 0 10px; border-radius: 7px; font-size: 13px; }
+  .demo-drop div.on { background: var(--grad); color: #fff; }
+  .demo-drop hr { border: 0; border-top: 1px solid var(--border); margin: 4px 6px; }
+  .demo-keypress {
+    position: absolute; bottom: 44px; right: 16px; padding: 6px 12px; border-radius: 9px; font-size: 13px; font-weight: 650;
+    background: var(--grad); color: #fff; box-shadow: 0 8px 20px -8px rgba(110, 80, 240, .8); opacity: 0; transition: opacity .2s;
+  }
+  .demo-keypress.show { opacity: 1; }
+  .demo-preview .secret-hint { display: block; margin-top: 10px; font: 12px/1.5 -apple-system, BlinkMacSystemFont, sans-serif; color: var(--muted); }
 
   /* Sections */
   section { padding: 96px 0 0; }
@@ -381,6 +399,20 @@
   @media (max-width: 820px) {
     .showcase { grid-template-columns: 1fr; padding: 24px; gap: 24px; }
   }
+  /* Secrets showcase */
+  .secret-mock .name-row .k { font-size: 12px; flex: none; }
+  .secret-mock .reveal {
+    margin-top: 8px; padding: 12px; border-radius: 10px; border: 1px solid var(--border);
+    font: 13px/1.6 ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  .secret-mock .reveal small { display: block; margin-top: 6px; font: 12px/1.5 -apple-system, BlinkMacSystemFont, sans-serif; color: var(--muted); }
+  .secret-mock .disk {
+    display: flex; align-items: center; gap: 8px; margin-top: 10px; padding: 10px 12px; border-radius: 10px;
+    background: var(--surface); font-size: 12.5px; color: var(--muted); border: 1px solid var(--border);
+  }
+  .secret-mock .disk b { color: var(--text); }
+  .secret-mock .disk code { font-size: 11.5px; opacity: .8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
   /* Type filter showcase */
   .filter-mock { position: relative; min-height: 330px; }
   .filter-bar { display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 12px; border-bottom: 1px solid var(--border); margin-bottom: 6px; font-size: 14px; color: var(--muted); }
@@ -431,13 +463,16 @@
       <div class="demo-search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
         <span class="demo-query" id="demo-query"></span>
+        <span class="demo-filter" id="demo-filter">☰ <span id="demo-filter-label">All Types</span> <span class="chev">▼</span></span>
       </div>
+      <div class="demo-drop" id="demo-drop" hidden></div>
+      <div class="demo-keypress" id="demo-key"></div>
       <div class="demo-body">
         <div class="demo-list" id="demo-list"></div>
         <div class="demo-preview" id="demo-preview"></div>
       </div>
       <div class="demo-foot">
-        <span><b>↩</b> Paste</span><span><b>⇧↩</b> Plain text</span><span><b>⌘P</b> Pin</span><span><b>⌘R</b> Rename</span><span><b>⌘⌫</b> Delete</span><span><b>⇥</b> Type</span><span><b>esc</b> Close</span>
+        <span><b>↩</b> Paste</span><span><b>⇧↩</b> Plain text</span><span><b>⌘P</b> Pin</span><span><b>⌘R</b> Rename</span><span><b>⌘⌫</b> Delete</span><span><b>⇥</b> Type</span><span><b>esc</b> Close</span><span class="lock">🔒 Encrypted on your Mac</span>
       </div>
     </div></div>
   </header>
@@ -475,7 +510,32 @@
       <div class="card">
         <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
         <h3>Private by design</h3>
-        <p>Everything stays on your Mac. No account, no cloud, no tracking. Passwords are skipped.</p>
+        <p>Everything stays on your Mac, encrypted. No account, no cloud, no tracking. Passwords are skipped and API keys are hidden.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="secrets">
+    <span class="eyebrow grad-text">New in 1.1.4</span>
+    <h2>Encrypted history. <span class="grad-text">Hidden secrets.</span></h2>
+    <p class="section-lead">Copy an API key from a dashboard and it won't sit in plain text on your disk, or show up when you share your screen.</p>
+    <div class="card showcase">
+      <div>
+        <h3>Your clipboard, locked on your Mac</h3>
+        <p class="lead-sm">Your whole history is encrypted with AES-256. The key lives in your Mac's Keychain, so other apps and backups only see scrambled data.</p>
+        <ol>
+          <li><span>API keys, tokens, HMAC secrets and private keys are detected and shown as <b>sk-p••••dE6s</b></span></li>
+          <li><span>Hold <kbd>⌥</kbd> to see one. Pasting always inserts the real value</span></li>
+          <li><span>Secrets delete themselves after 24 hours, unless you pin them. <kbd>Tab</kbd> → <b>Secrets Only</b> lists them</span></li>
+        </ol>
+      </div>
+      <div class="name-list secret-mock" aria-hidden="true">
+        <div class="name-row sel"><span class="ico" style="background:#fff"></span><span class="k">🔑</span><span class="content" style="color:#fff">sk-p••••••••dE6s</span></div>
+        <div class="name-row"><span class="ico" style="background:#22c55e"></span><span class="k">🔑</span><span class="content" style="color:var(--text)">ghp_••••••••Q7r8</span></div>
+        <div class="name-row"><span class="ico" style="background:#f97316"></span><span class="k">🔑</span><span class="content" style="color:var(--text)">Secret (3 lines)</span></div>
+        <div class="name-row"><span class="ico" style="background:#0ea5e9"></span><span class="content" style="color:var(--text)">https://dashboard.stripe.com/apikeys</span></div>
+        <div class="reveal">sk-p••••••••dE6s<small>Hidden because it looks like a key or token. Hold ⌥ to show it. Deleted in 23 hours.</small></div>
+        <div class="disk">🔒 <span><b>history.enc</b> · AES-256 · key in Keychain</span></div>
       </div>
     </div>
   </section>
@@ -552,6 +612,7 @@
       <div><span>Rename item</span><kbd>⌘R</kbd></div>
       <div><span>Delete item</span><kbd>⌘⌫</kbd></div>
       <div><span>Show one type</span><kbd>Tab</kbd></div>
+      <div><span>Show a hidden secret</span><kbd>hold ⌥</kbd></div>
       <div><span>Close</span><kbd>esc</kbd></div>
     </div>
   </section>
@@ -660,6 +721,14 @@
         <p>No. Your history is stored only on your Mac, in <code>~/Library/Application Support/Clips</code>. Your clipboard history is never sent anywhere; Clips only goes online to check for updates.</p>
       </details>
       <details>
+        <summary>Is my history encrypted?</summary>
+        <p>Yes, since version 1.1.4. Your history and saved images are encrypted with AES-256, and the key is kept in your Mac's Keychain. Other apps, scripts and backups only see scrambled data. History from earlier versions is converted automatically when you update.</p>
+      </details>
+      <details>
+        <summary>What happens to API keys and tokens I copy?</summary>
+        <p>Clips recognizes API keys (OpenAI, Anthropic, GitHub, AWS, Stripe, Slack, Google and more), tokens, JWTs, HMAC secrets, private keys and lines like <code>API_KEY=…</code>. They're shown hidden (hold ⌥ to see one), pasted with a marker that tells other clipboard apps not to save them, and deleted after 24 hours. Pin one if you want to keep it.</p>
+      </details>
+      <details>
         <summary>Does it record passwords?</summary>
         <p>Clips skips anything that password managers (1Password, Bitwarden, Keychain and others) mark as private. You can also pause recording from the menu bar at any time.</p>
       </details>
@@ -696,59 +765,114 @@
 </div>
 
 <script>
-  // Demo: types a search into the fake window and filters the list.
+  // Demo: searches, filters by type with Tab, and peeks at a hidden secret with ⌥.
   const items = [
-    { n: "My email", t: "lasha@example.com", c: "#3d6eff", pin: true, p: "lasha@example.com" },
-    { t: "https://github.com/aurryllash/clips", c: "#f97316", p: "https://github.com/aurryllash/clips" },
-    { t: "Meeting moved to 3pm, see you there!", c: "#22c55e", p: "Meeting moved to 3pm, see you there!" },
-    { t: "Screenshot 2026-11-17 at 10.42", c: "#a855f7", p: "Image 2880×1800" },
-    { n: "My IBAN", t: "GE29 NB00 0000 0123 4567 89", c: "#3d6eff", pin: true, p: "GE29 NB00 0000 0123 4567 89" },
-    { t: "const total = items.reduce((a, b) => a + b, 0)", c: "#0ea5e9", p: "const total = items.reduce((a, b) => a + b, 0)" },
-    { t: "Invoice #1042: Clips Pro", c: "#f43f5e", p: "Invoice #1042: Clips Pro\nAmount: $8.00\nDue: Dec 1" },
+    { n: "My email", t: "lasha@example.com", c: "#3d6eff", pin: true, p: "lasha@example.com", type: "Emails" },
+    { t: "https://github.com/aurryllash/clips", c: "#f97316", p: "https://github.com/aurryllash/clips", type: "Links" },
+    { t: "sk-proj-a81fK29xQm4LpZr7Tn3VbW0yHc5JdE6s", c: "#eab308", secret: true, type: "Secrets" },
+    { t: "Meeting moved to 3pm, see you there!", c: "#22c55e", p: "Meeting moved to 3pm, see you there!", type: "Text" },
+    { t: "Screenshot 2026-11-17 at 10.42", c: "#a855f7", p: "Image 2880×1800", type: "Images" },
+    { n: "My IBAN", t: "GE29 NB00 0000 0123 4567 89", c: "#3d6eff", pin: true, p: "GE29 NB00 0000 0123 4567 89", type: "Text" },
+    { t: "https://clipsformac.vercel.app", c: "#0ea5e9", p: "https://clipsformac.vercel.app", type: "Links" },
+    { t: "Invoice #1042: Clips Pro", c: "#f43f5e", p: "Invoice #1042: Clips Pro\nAmount: $8.00\nDue: Dec 1", type: "Text" },
   ];
+  const types = ["All Types", "Text Only", "Images Only", "Files Only", "Links Only", "Emails Only", "Colors Only", "Secrets Only"];
   const list = document.getElementById("demo-list");
   const preview = document.getElementById("demo-preview");
   const query = document.getElementById("demo-query");
+  const filterEl = document.getElementById("demo-filter");
+  const filterLabel = document.getElementById("demo-filter-label");
+  const drop = document.getElementById("demo-drop");
+  const keyEl = document.getElementById("demo-key");
+  const mask = t => t.slice(0, 4) + "••••••••" + t.slice(-4);
+  const state = { q: "", type: "All Types", sel: 0, reveal: false };
 
-  function render(q) {
-    const matches = i => ((i.n || "") + " " + i.t).toLowerCase().includes(q.toLowerCase());
+  function render() {
+    const want = state.type.replace(" Only", "");
+    const matches = i => (state.type === "All Types" || i.type === want) &&
+      ((i.n || "") + " " + i.t).toLowerCase().includes(state.q.toLowerCase());
     const shown = items.filter(i => i.pin && matches(i)).concat(items.filter(i => !i.pin && matches(i)));
+    const sel = Math.min(state.sel, shown.length - 1);
     list.innerHTML = "";
     shown.forEach((item, n) => {
       const row = document.createElement("div");
-      row.className = "row" + (n === 0 ? " sel" : "");
-      row.innerHTML = `<span class="ico" style="background:${item.c}"></span><span class="txt"></span>` +
-        (item.pin ? `<span class="pin">📌</span>` : "") + (n < 9 ? `<span class="key">⌘${n + 1}</span>` : "");
+      row.className = "row" + (n === sel ? " sel" : "");
+      row.innerHTML = `<span class="ico" style="background:${item.c}"></span>` + (item.secret ? `<span class="pin">🔑</span>` : "") +
+        `<span class="txt"></span>` + (item.pin ? `<span class="pin">📌</span>` : "") + (n < 9 ? `<span class="key">⌘${n + 1}</span>` : "");
       const txt = row.querySelector(".txt");
       if (item.n) {
         const name = document.createElement("b"); name.textContent = item.n;
         const sub = document.createElement("span"); sub.className = "sub"; sub.textContent = item.t;
         txt.append(name, sub);
       } else {
-        txt.textContent = item.t;
+        txt.textContent = item.secret ? mask(item.t) : item.t;
       }
       list.appendChild(row);
     });
-    preview.textContent = shown[0] ? (shown[0].n ? shown[0].n + "\n\n" : "") + shown[0].p : "No matches";
+    const cur = shown[sel];
+    preview.textContent = "";
+    if (!cur) { preview.textContent = "No matches"; }
+    else if (cur.secret && !state.reveal) {
+      preview.textContent = mask(cur.t);
+      const note = document.createElement("span"); note.className = "secret-hint";
+      note.textContent = "Hidden because it looks like a key or token. Hold ⌥ to show it.";
+      preview.appendChild(note);
+    } else {
+      preview.textContent = (cur.n ? cur.n + "\n\n" : "") + (cur.secret ? cur.t : cur.p);
+    }
+    filterLabel.textContent = state.type;
+    filterEl.classList.toggle("active", state.type !== "All Types");
   }
 
-  const searches = ["", "iban", "", "invoice", "", "my email", "", "github"];
-  let step = 0;
-  function typeNext() {
-    const word = searches[step % searches.length];
-    step++;
-    let i = 0;
-    query.textContent = "";
-    render("");
-    if (!word) return setTimeout(typeNext, 1800);
-    const tick = setInterval(() => {
-      query.textContent = word.slice(0, ++i);
-      render(query.textContent);
-      if (i >= word.length) { clearInterval(tick); setTimeout(typeNext, 2200); }
-    }, 120);
+  function renderDrop(highlight) {
+    drop.innerHTML = "";
+    types.forEach((name, n) => {
+      const row = document.createElement("div");
+      row.textContent = name;
+      if (n === highlight) row.className = "on";
+      drop.appendChild(row);
+      if (n === 0) drop.appendChild(document.createElement("hr"));
+    });
   }
-  render("");
-  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) setTimeout(typeNext, 1200);
+
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  async function press(label, ms = 450) {
+    keyEl.textContent = label; keyEl.classList.add("show");
+    await sleep(ms); keyEl.classList.remove("show");
+  }
+  async function type(word) {
+    for (let i = 1; i <= word.length; i++) { state.q = word.slice(0, i); query.textContent = state.q; render(); await sleep(120); }
+  }
+  async function clear() { state.q = ""; query.textContent = ""; state.sel = 0; render(); }
+
+  async function pickType(target) {
+    await press("Tab");
+    let h = types.indexOf(state.type);
+    drop.hidden = false; renderDrop(h); await sleep(500);
+    const goal = types.indexOf(target);
+    while (h !== goal) { h += h < goal ? 1 : -1; renderDrop(h); await sleep(260); }
+    await press("↩", 350);
+    drop.hidden = true; state.type = target; state.sel = 0; render();
+  }
+
+  async function loop() {
+    while (true) {
+      await sleep(1400);
+      await type("iban"); await sleep(2000); await clear(); await sleep(900);
+      await pickType("Links Only"); await sleep(2200);
+      await pickType("All Types"); await sleep(800);
+      for (let i = 1; i <= 3; i++) { state.sel = i; render(); await sleep(350); } // down to the secret
+      await sleep(1500);
+      keyEl.textContent = "⌥ held"; keyEl.classList.add("show"); state.reveal = true; render();
+      await sleep(1600);
+      keyEl.classList.remove("show"); state.reveal = false; render();
+      await sleep(1600);
+      state.sel = 0; render();
+      await type("invoice"); await sleep(2000); await clear();
+    }
+  }
+  render();
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) loop();
 </script>
 
 <script>
