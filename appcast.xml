@@ -2,9 +2,18 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>Clips</title>
-    <link>https://www.clipsapp.online/</link>
+    <link>https://clipsformac.vercel.app/</link>
     <description>Updates for Clips, clipboard history for Mac.</description>
     <language>en</language>
+    <item>
+      <title>Version 1.2</title>
+      <pubDate>Wed, 18 Nov 2026 13:08:54 GMT</pubDate>
+      <sparkle:version>202611181708</sparkle:version>
+      <sparkle:shortVersionString>1.2</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul><li>Clips is now a paid app for new users: $3.99 once, with a 30-day free trial. If you used Clips before this version, it stays free for you, forever. Thank you!</li><li>New: paperclip menu → License… shows your trial or license status.</li></ul>]]></description>
+      <enclosure url="https://github.com/aurryllash/clips/releases/download/v1.2/Clips.dmg" type="application/octet-stream" sparkle:edSignature="d1WIktG1sLcB5ddxZQQrujgWOKyKl7XLfdX8Gb2lbpKstV3pTyTtB2+Yv+SM8ttMVpLQYdHy1x7utb6QyW5pBA==" length="2067203" />
+    </item>
     <item>
       <title>Version 1.1.4</title>
       <pubDate>Wed, 18 Nov 2026 09:37:32 GMT</pubDate>
