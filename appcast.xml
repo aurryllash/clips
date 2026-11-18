@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>Clips</title>
-    <link>https://clipsformac.vercel.app/</link>
+    <link>https://www.clipsapp.online/</link>
     <description>Updates for Clips, clipboard history for Mac.</description>
     <language>en</language>
     <item>

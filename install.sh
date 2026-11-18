@@ -1,13 +1,13 @@
 #!/bin/bash
 # Installs the latest Clips into /Applications.
 #
-#   curl -fsSL https://clipsformac.vercel.app/install.sh | bash
+#   curl -fsSL https://www.clipsapp.online/install.sh | bash
 #
 # Files downloaded with curl aren't marked as "downloaded from the internet",
 # so macOS opens Clips without the "Apple could not verify" warning.
 set -euo pipefail
 
-DMG_URL="https://clipsformac.vercel.app/download"
+DMG_URL="https://www.clipsapp.online/download"
 APP_NAME="Clips.app"
 
 bold() { printf "\033[1m%s\033[0m\n" "$1"; }
